@@ -1,10 +1,25 @@
 #!/usr/bin/env python
 
-from engine.StreamEditor import StreamEditor
-from engine.sed_regex import \
-    GOOG_REQUIRE, ANY
-from engine.sed_file_util import call_main
-from engine.match_engine import ACCEPT, REPEAT, NEXT
+import re
+
+from engine import (
+    StreamEditor,
+    call_main,
+    ACCEPT, REPEAT, NEXT,
+    ANY
+)
+
+# goog.require('wgen.assess.lib');
+GOOG_REQUIRE = re.compile(r'''
+    ^
+    goog.require
+    \(
+    ['"]
+    (?P<class>[\w\d_\$\.]+)
+    ['"]
+    \)
+    ;
+''', re.VERBOSE)
 
 
 class StreamEditorSortGoogRequires(StreamEditor):

@@ -181,18 +181,6 @@ GOOG_PROVIDE = re.compile(r'''
     ;
 ''', re.VERBOSE)
 
-# goog.require('wgen.assess.lib');
-GOOG_REQUIRE = re.compile(r'''
-    ^
-    goog.require
-    \(
-    ['"]
-    (?P<class>[\w\d_\$\.]+)
-    ['"]
-    \)
-    ;
-''', re.VERBOSE)
-
 # /**
 COMMENT_OPEN = re.compile(r'''
     ^

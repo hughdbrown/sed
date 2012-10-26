@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 import re
 
-from engine.StreamEditor import StreamEditor
-from engine.sed_regex import \
-    FUNCTION_HEADER, WGEN_CLASS, WGEN_FUNCTION, \
+from engine import (
+    StreamEditor,
+    call_main,
+    ACCEPT
+)
+from engine.sed_regex import (
+    FUNCTION_HEADER, WGEN_CLASS, WGEN_FUNCTION,
     CONSTRUCTOR_FMT, NAMESPACE_FMT, EXTENDS_FMT
-from engine.sed_file_util import call_main
-from engine.match_engine import ACCEPT
+)
 
 
 VAR_DECL_FMT = r'''

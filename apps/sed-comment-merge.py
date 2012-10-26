@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
-from engine.StreamEditor import StreamEditor
+from engine import (
+    StreamEditor,
+    call_main,
+    ACCEPT, REJECT, NEXT, REPEAT
+)
 from engine.sed_regex import COMMENT_OPEN, COMMENT_CLOSE, BLANK_LINE, ALL
-from engine.sed_file_util import call_main
-from engine.match_engine import ACCEPT, REJECT, NEXT, REPEAT
 
 
 # Find consecutive jsdoc comments

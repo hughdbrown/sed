@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
+from engine import (
+    StreamEditor,
+    call_main,
+    ACCEPT, REJECT, NEXT
+)
 from engine.sed_util import comma_terminate
-from engine.StreamEditor import StreamEditor
 from engine.sed_regex import \
     END_DECL, END_VAR_DECL, FUNCTION_HEADER, SELECTOR, VAR_DECL
-from engine.sed_file_util import call_main
-from engine.match_engine import ACCEPT, REJECT, NEXT
 
 
 def build_pairs(pairs):

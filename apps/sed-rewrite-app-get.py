@@ -2,9 +2,11 @@
 
 import re
 
-from engine.StreamEditor import StreamEditor
-from engine.sed_file_util import call_main
-from engine.match_engine import ACCEPT, NEXT, REPEAT
+from engine import (
+    StreamEditor,
+    call_main,
+    ACCEPT, NEXT, REPEAT
+)
 
 APP_GET = re.compile(r'''
     ^
