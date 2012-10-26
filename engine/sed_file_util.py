@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 
 from sys import stderr
 import os
@@ -23,8 +24,10 @@ def call_main(StreamEditorClass):
             with StreamEditorClass(filename, options) as streamed:
                 streamed.transform()
         except Exception, err:
-            stderr.write("%s(%s): %s\n" %
-                         (filename, StreamEditorClass.__name__, str(err)))
+            stderr.write("%(filename)s(%(name)s): %(err)s\n".format(
+                filename=filename,
+                name=StreamEditorClass.__name__,
+                err=str(err)))
 
     option_list = [
         make_option('-d', '--dry-run', dest="dryrun", action="store_true",

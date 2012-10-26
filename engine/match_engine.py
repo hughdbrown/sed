@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from __future__ import print_function
+
 from sys import stderr
 
 ACCEPT, REJECT, NEXT, REPEAT = -1, -2, -3, -4
@@ -17,8 +19,7 @@ FMTS = {
     0: "CONTINUE(line %(i)d, state %(state)d --> %(new_state_name)s): %(line)s\n",
 }
 
-MATCH_FMT = \
-    "Match(line %(i)d, state %(state)d --> %(new_state_name)s): %(line)s\n"
+MATCH_FMT = "Match(line %(i)d, state %(state)d --> %(new_state_name)s): %(line)s\n"
 
 
 def match_engine(lines, regex_specs, verbose=False):
@@ -38,7 +39,8 @@ def match_engine(lines, regex_specs, verbose=False):
                     new_state_name = STATE_NAME.get(new_state, str(new_state))
                     stderr.write(MATCH_FMT.format(i=i, state=state, new_state_name=new_state_name, line=line))
                     fmt = FMTS.get(new_state) or FMTS[0]
-                    stderr.write(fmt % locals())
+                    msg = fmt.format(i=i, state=state, new_state_name=new_state_name, line=line)
+                    stderr.write(msg)
 
                 args = dict([('line_no', i)] + match.groupdict().items())
                 #args = dict([('line_no', i), ('rule', regex.pattern)] + match.groupdict().items())
@@ -59,5 +61,5 @@ def match_engine(lines, regex_specs, verbose=False):
                     new_state
                 break
             elif verbose:
-                print "No match: %s" % line
+                print("No match: %(line)s".format(line=line))
     return matches

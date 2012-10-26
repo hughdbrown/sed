@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from __future__ import print_function
+
 import sys
 
 from engine.match_engine import match_engine
@@ -42,7 +44,9 @@ class StreamEditor(object):
     def save(self):
         if self.changes:
             if self.verbose:
-                msg = "Saving %s: %d changes\n" % (self.filename, self.changes)
+                msg = "Saving %(filename)s: %(changes)d changes\n".format(
+                    filename=self.filename,
+                    changes=self.changes)
                 sys.stderr.write(msg)
             with open(self.filename, "w") as handle:
                 handle.write("\n".join(self.lines) + "\n")
