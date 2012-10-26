@@ -18,8 +18,8 @@ namespace "lint" do
 
   desc "Run coverage"
   task :pycoverage => ["setup:lint"] do
-    check_env_var(["WORKSPACE"])
-
+    #check_env_var(["WORKSPACE"])
+    #
     #FileUtils.cd(CLIENT_BASE_DIR) do
     #  output = File.join(ENV['WORKSPACE'], "client/python/src/nosetests.xml")
     #  sh("python setup.py nosetests -v --with-xunit --xunit-file=#{output} --with-coverage --cover-package=wgen/fssclient")
