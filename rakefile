@@ -1,0 +1,40 @@
+#
+# The assessment web app build script.
+#
+
+require 'find'
+require 'rake/clean'
+
+CLIENT_CODE_DIR='engine'
+CLIENT_TEST_DIR='test'
+CLIENT_APP_DIR='test'
+
+# Load other rake tasks
+Dir.glob('tasks/*.rake') {|f| load(f) }
+
+#-----------------------------------------------------
+# Helper methods
+#-----------------------------------------------------
+def highlight(message, length=nil)
+  stars = '*' * ((length or message.length) + 4)
+  lines = ["", stars, "* #{message} *", stars, "", ""]
+  return lines.join("\n")
+end
+
+def notice(message)
+  $stderr.puts highlight(message)
+end
+
+def check_env_var(variables)
+  missing = variables.find_all { |v| ENV[v] == nil }
+  unless missing.empty?
+    raise "The following variables are missing and are needed to run this script: #{missing.join(', ')}."
+  end
+end
+
+# Add 'rake clean' task
+CLEAN.include(
+    Dir.glob(File.join(CLIENT_CODE_DIR, '*.pyc')), 
+    Dir.glob(File.join(CLIENT_TEST_DIR, '*', '*.pyc')),
+    Dir.glob(File.join(CLIENT_APP_DIR, '*', '*.pyc'))
+)
