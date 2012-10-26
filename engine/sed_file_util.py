@@ -23,7 +23,7 @@ def call_main(StreamEditorClass):
         try:
             with StreamEditorClass(filename, options) as streamed:
                 streamed.transform()
-        except Exception, err:
+        except Exception as err:
             stderr.write("%(filename)s(%(name)s): %(err)s\n".format(
                 filename=filename,
                 name=StreamEditorClass.__name__,
