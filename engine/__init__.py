@@ -5,8 +5,8 @@ from engine.sed_regex import ANY
 
 
 __all__ = [
-    StreamEditor,
-    call_main,
-    ACCEPT, REJECT, NEXT, REPEAT,
-    ANY,
+    "StreamEditor",
+    "call_main",
+    "ACCEPT", "REJECT", "NEXT", "REPEAT",
+    "ANY",
 ]
