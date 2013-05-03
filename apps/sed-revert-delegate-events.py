@@ -38,7 +38,7 @@ class StreamEditorRevertDelegateEvents(StreamEditor):
 
 
 if __name__ == '__main__':
-    #import os.path
-    #path = os.path.expandvars(VIEW)
-    #call_main([path], StreamEditorRevertDelegateEvents)
+    # import os.path
+    # path = os.path.expandvars(VIEW)
+    # call_main([path], StreamEditorRevertDelegateEvents)
     call_main(StreamEditorRevertDelegateEvents)
