@@ -15,7 +15,7 @@ def build_pairs(pairs):
     return comma_terminate([fmt % (sel, fn) for sel, fn in pairs])
 
 
-#Match events declared as a variable within a function
+# Match events declared as a variable within a function
 #
 #       var setEndingScreenEvents = {
 #           "click  #onEndBracket"           : "_onEndBracketButtonClickHandler",
@@ -47,8 +47,8 @@ class StreamEditorModifyEventsWithinMethod(StreamEditor):
                 new_lines = build_pairs([
                     (ve["selector"], ve["function"])
                     for ve in var_events])
-                loc = (var_events[0]["line_no"], \
-                    var_events[-1]["line_no"] + 1)
+                loc = (var_events[0]["line_no"],
+                       var_events[-1]["line_no"] + 1)
                 self.replace_range(loc, new_lines)
                 self.entab()
 
