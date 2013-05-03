@@ -68,7 +68,7 @@ class StreamEditorDocstring(StreamEditor):
                 self.replace_range((replace_start, replace_end + 1), changes)
             if self.verbose or self.dryrun:
                 stderr.write("%s\n" % ('-' * 30))
-                stderr.write("(%d %d) %s\n" % \
+                stderr.write("(%d %d) %s\n" %
                              (replace_start, replace_end, self.filename))
                 stderr.write("\n".join(changes) + "\n")
 
