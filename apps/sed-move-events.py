@@ -55,10 +55,10 @@ class StreamEditorMoveEvents(StreamEditor):
                     self.append_range(initialize, new_lines)
                 self.entab()
             else:
-                stderr.write("*** %s: Missing initialize method\n" % \
+                stderr.write("*** %s: Missing initialize method\n" %
                              self.filename)
         else:
-            stderr.write("%s: match started at %d\n" % \
+            stderr.write("%s: match started at %d\n" %
                          (self.filename, start), matches)
 
 
