@@ -15,7 +15,7 @@ def build_pairs(pairs):
     return comma_terminate([fmt % (sel, fn) for sel, fn in pairs])
 
 
-#Match events declared as a variable within a function
+# Match events declared as a variable within a function
 #
 #       var setEndingScreenEvents = {
 #           "click  #onEndBracket"           : "_onEndBracketButtonClickHandler",
