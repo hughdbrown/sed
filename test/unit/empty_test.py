@@ -1,6 +1,6 @@
 import unittest
 
-#from mock import Mock, patch
+# from mock import Mock, patch
 from nose.tools import (
     raises,
     assert_true, assert_false, assert_equals
