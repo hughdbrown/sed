@@ -35,7 +35,7 @@ def match_engine(lines, regex_specs, verbose=False):
                     matches.append({'start': i, 'end': None, 'matches': []})
 
                 if verbose:
-                    #pylint: disable=W0612
+                    # pylint: disable=W0612
                     new_state_name = STATE_NAME.get(new_state, str(new_state))
                     stderr.write(MATCH_FMT.format(i=i, state=state, new_state_name=new_state_name, line=line))
                     fmt = FMTS.get(new_state) or FMTS[0]
@@ -43,7 +43,7 @@ def match_engine(lines, regex_specs, verbose=False):
                     stderr.write(msg)
 
                 args = dict([('line_no', i)] + match.groupdict().items())
-                #args = dict([('line_no', i), ('rule', regex.pattern)] + match.groupdict().items())
+                # args = dict([('line_no', i), ('rule', regex.pattern)] + match.groupdict().items())
 
                 if hasattr(new_state, '__call__'):
                     new_state = new_state(matches[-1], args)
