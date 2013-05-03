@@ -41,7 +41,7 @@ def test_function(matches, args):
 
 class StreamEditorRewriteAppGet(StreamEditor):
     table = [
-        [[APP_GET, test_function], ], 
+        [[APP_GET, test_function], ],
         [[ANY, test_function], ],
     ]
 
