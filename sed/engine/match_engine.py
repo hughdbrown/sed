@@ -12,14 +12,14 @@ STATE_NAME = {
 }
 
 FMTS = {
-    REPEAT: "REPEAT(line %(i)d, state %(state)d --> %(state)d: %(line)s\n",
-    NEXT: "CONTINUE(line %(i)d, state %(state)d --> %(new_state_name)s): %(line)s\n",
-    ACCEPT: "ACCEPT(line %(i)d, state %(state)d): %(line)s\n",
-    REJECT: "REJECT(line %(i)d, state %(state)d): %(line)s\n",
-    0: "CONTINUE(line %(i)d, state %(state)d --> %(new_state_name)s): %(line)s\n",
+    REPEAT: "REPEAT(line {i}, state {state}: --> (state}: (line})\n",
+    NEXT: "CONTINUE(line {i}, state {state}: --> {new_state_name}: %{line})\n",
+    ACCEPT: "ACCEPT(line {i}, state {state}: {line})\n",
+    REJECT: "REJECT(line {i}, state {state}: {line})\n",
+    0: "CONTINUE(line {i}, state {state} --> {new_state_name}: {line})\n",
 }
 
-MATCH_FMT = "Match(line %(i)d, state %(state)d --> %(new_state_name)s): %(line)s\n"
+MATCH_FMT = "Match(line {i}, state {state} --> {new_state_name}: {line})\n"
 
 
 def match_engine(lines, regex_specs, verbose=False):
@@ -61,5 +61,5 @@ def match_engine(lines, regex_specs, verbose=False):
                     new_state
                 break
             elif verbose:
-                print("No match: %(line)s".format(line=line))
+                print("No match: {0}".format(line))
     return matches

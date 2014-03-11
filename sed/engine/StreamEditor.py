@@ -3,8 +3,8 @@ from __future__ import print_function
 
 import sys
 
-from engine.match_engine import match_engine
-from engine.sed_util import (
+from sed.engine.match_engine import match_engine
+from sed.engine.sed_util import (
     delete_range, insert_range, append_range, replace_range,
     find_line, find_any_line,
     entab,
@@ -44,9 +44,7 @@ class StreamEditor(object):
     def save(self):
         if self.changes:
             if self.verbose:
-                msg = "Saving %(filename)s: %(changes)d changes\n".format(
-                    filename=self.filename,
-                    changes=self.changes)
+                msg = "Saving {o.filename}: {o.changes} changes\n".format(o=self)
                 sys.stderr.write(msg)
             with open(self.filename, "w") as handle:
                 handle.write("\n".join(self.lines) + "\n")

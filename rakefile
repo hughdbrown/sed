@@ -5,7 +5,7 @@
 require 'find'
 require 'rake/clean'
 
-CLIENT_CODE_DIR='engine'
+CLIENT_CODE_DIR='sed/engine'
 CLIENT_TEST_DIR='test'
 CLIENT_APP_DIR='test'
 
@@ -36,5 +36,8 @@ end
 CLEAN.include(
     Dir.glob(File.join(CLIENT_CODE_DIR, '*.pyc')), 
     Dir.glob(File.join(CLIENT_TEST_DIR, '*', '*.pyc')),
-    Dir.glob(File.join(CLIENT_APP_DIR, '*', '*.pyc'))
+    Dir.glob(File.join(CLIENT_APP_DIR, '*', '*.pyc')),
+    "build",
+    "dist",
+    "sed.egg-info"
 )
