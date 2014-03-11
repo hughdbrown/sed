@@ -12,14 +12,20 @@ setup(
     author='Hugh Brown',
     author_email='hughdbrown@yahoo.com',
     url='iwebthereforeiam.com',
+    classifiers=[
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ],
     install_requires=[
-        'nose',
     ],
     tests_require=[
+        'nose',
     ],
     setup_requires=[],
-    packages=find_packages(exclude=['apps', 'test']),
-    include_package_data=True,
+    packages=[
+        'sed',
+        'sed.engine',
+    ],
     test_suite='nose.collector',
     zip_safe=False,
 )
