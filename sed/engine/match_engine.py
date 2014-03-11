@@ -54,10 +54,12 @@ def match_engine(lines, regex_specs, verbose=False):
                 elif new_state == REJECT:
                     matches = matches[:-1]
 
-                state = 0 if new_state in (ACCEPT, REJECT) else \
-                    (state + 1) if new_state == NEXT else \
-                    state if new_state == REPEAT else \
+                state = (
+                    0 if new_state in (ACCEPT, REJECT) else
+                    (state + 1) if new_state == NEXT else
+                    state if new_state == REPEAT else
                     new_state
+                )
                 break
             elif verbose:
                 print("No match: {0}".format(line))
