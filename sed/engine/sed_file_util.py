@@ -20,14 +20,8 @@ def call_main(StreamEditorClass):
         )
 
     def main(filename, StreamEditorClass, options):
-        try:
-            with StreamEditorClass(filename, options) as streamed:
-                streamed.transform()
-        except Exception as err:
-            stderr.write("%(filename)s(%(name)s): %(err)s\n".format(
-                filename=filename,
-                name=StreamEditorClass.__name__,
-                err=str(err)))
+        with StreamEditorClass(filename, options) as streamed:
+            streamed.transform()
 
     option_list = [
         make_option('-d', '--dry-run', dest="dryrun", action="store_true",
@@ -35,7 +29,7 @@ def call_main(StreamEditorClass):
         make_option('-e', '--ext', dest="extension",
                     default=None, help="Extension to operate on"),
         make_option('-v', '--verbose', dest="verbose", action="store_true",
-                    default=False, help="Input file for json"),
+                    default=False, help="Verbose output"),
     ]
     parser = OptionParser(option_list=option_list, add_help_option=True)
     options, args = parser.parse_args()
