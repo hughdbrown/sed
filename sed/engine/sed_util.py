@@ -80,8 +80,8 @@ def add_terminator(lines, terminator):
     def terminator_gen(last_lineno, terminator):
         for i in count():
             yield terminator if i != last_lineno else ""
-    return [line + sep for line, sep in
-            zip(lines, terminator_gen(len(lines) - 1, terminator))]
+    return [line + sep
+            for line, sep in zip(lines, terminator_gen(len(lines) - 1, terminator))]
 
 
 def comma_terminate(lines):
