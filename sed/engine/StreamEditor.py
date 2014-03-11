@@ -24,12 +24,13 @@ class StreamEditor(object):
     table = []  # Must be overridden in derived scope
 
     def __init__(self, filename, options):
+        if not self.table:
+            # Derived class provides an implementation
+            raise NotImplementedError("StreamEditor.table")
         self.changes = 0
         self.verbose = options.verbose
         self.dryrun = options.dryrun
         self.filename = filename
-        if not self.table:
-            raise NotImplementedError("StreamEditor.table")
         with open(self.filename) as handle:
             self.lines = [line.rstrip() for line in handle]
             self.matches = list(reversed(self.match_engine()))
@@ -39,6 +40,7 @@ class StreamEditor(object):
             self.apply_match(i, dict_matches)
 
     def apply_match(self, i, dict_matches):
+        # Derived class provides an implementation
         raise NotImplementedError("StreamEditor.apply_match")
 
     def save(self):
