@@ -43,7 +43,6 @@ def match_engine(lines, regex_specs, verbose=False):
                     stderr.write(msg)
 
                 args = dict([('line_no', i)] + match.groupdict().items())
-                # args = dict([('line_no', i), ('rule', regex.pattern)] + match.groupdict().items())
 
                 if hasattr(new_state, '__call__'):
                     new_state = new_state(matches[-1], args)
