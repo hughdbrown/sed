@@ -61,6 +61,10 @@ class StreamEditor(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.save()
 
+    def copy_range(self, loc):
+        start, end = loc
+        return self.lines[start:end]
+
     def replace_range(self, loc, new_lines):
         self.lines = replace_range(self.lines, new_lines, loc)
         self.changes += 1
