@@ -7,13 +7,19 @@ except ImportError:
 
 setup(
     name='sed',
-    version='0.1',
-    description='Streaming editor toolikit',
+    version='0.2',
+    description='Streaming editor toolkit',
     author='Hugh Brown',
     author_email='hughdbrown@yahoo.com',
-    url='iwebthereforeiam.com',
+    url='http://iwebthereforeiam.com',
+    license='MIT',
     classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     install_requires=[
