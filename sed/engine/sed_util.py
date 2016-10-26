@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from itertools import count
+import doctest
 
 
 def delete_range(lines, r=None):
@@ -116,5 +117,4 @@ def sort_range(lines, r=None):
 
 
 if __name__ == '__main__':
-    import doctest
     doctest.testmod()
