@@ -16,7 +16,6 @@ from sed.engine.sed_util import (
 # (1) define self.table at class scope
 # (2) override apply_match with a method that will apply transformations
 # to self.lines using the information in a match
-# pylint: disable=R0921
 class StreamEditor(object):
     """
     Abstract class for stream editing
