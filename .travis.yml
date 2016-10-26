@@ -5,8 +5,9 @@ python:
     - "2.7"
     - "pypy"
     - "3.2"
+    - "3.5"
 install:
-    - pip install --use-mirrors nose
+    - pip install nose
 
 script:
   - python setup.py install
