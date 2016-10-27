@@ -33,7 +33,7 @@ class StreamEditor(object):
         base, _ = os.path.splitext(filename)
         self.new_filename = (
             None if not options.new_ext
-            else os.path.join(base, options.new_ext)
+            else base + options.new_ext
         )
         self.filename = filename
         with open(self.filename) as handle:
