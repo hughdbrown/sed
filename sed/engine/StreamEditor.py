@@ -91,11 +91,13 @@ class StreamEditor(object):
         self.lines = entab(self.lines)
         self.changes += 1
 
-    def find_line(self, regex):
-        return find_line(self.lines, regex)
+    def find_line(self, regex, lines=None):
+        line = lines or self.lines
+        return find_line(lines, regex)
 
-    def find_any_line(self, regexes):
-        return find_any_line(self.lines, regexes)
+    def find_any_line(self, regexes, lines=None):
+        line = lines or self.lines
+        return find_any_line(lines, regexes)
 
     def sort_range(self, loc):
         self.lines = sort_range(self.lines, loc)
