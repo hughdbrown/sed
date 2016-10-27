@@ -26,7 +26,9 @@ def call_main(StreamEditorClass):
         make_option('-d', '--dry-run', dest="dryrun", action="store_true",
                     default=False, help="Execute commands or just do dry run"),
         make_option('-e', '--ext', dest="extension",
-                    default=None, help="Extension to operate on"),
+                    default=None, help="Extension to operate on (.ext)"),
+        make_option('-n', '--new-ext', dest="new_ext",
+                    default=None, help="Extension to use in renaming file (.ext)"),
         make_option('-v', '--verbose', dest="verbose", action="store_true",
                     default=False, help="Verbose output"),
     ]

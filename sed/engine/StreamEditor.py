@@ -2,6 +2,7 @@
 from __future__ import print_function
 
 import sys
+import os.path
 
 from sed.engine.match_engine import match_engine
 from sed.engine.sed_util import (
@@ -29,6 +30,11 @@ class StreamEditor(object):
         self.changes = 0
         self.verbose = options.verbose
         self.dryrun = options.dryrun
+        base, _ = os.path.splitext(filename)
+        self.new_filename = (
+            None if not options.new_ext
+            else os.path.join(base, options.new_ext)
+        )
         self.filename = filename
         with open(self.filename) as handle:
             self.lines = [line.rstrip() for line in handle]
@@ -44,10 +50,11 @@ class StreamEditor(object):
 
     def save(self):
         if self.changes:
+            filename = self.new_filename or self.filename
             if self.verbose:
-                msg = "Saving {o.filename}: {o.changes} changes\n".format(o=self)
+                msg = "Saving {o.filename} to {0}: {o.changes} changes\n".format(filename, o=self)
                 sys.stderr.write(msg)
-            with open(self.filename, "w") as handle:
+            with open(filename, "w") as handle:
                 handle.write("\n".join(self.lines) + "\n")
             self.changes = 0
 
