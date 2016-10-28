@@ -12,7 +12,7 @@ STATE_NAME = {
 }
 
 FMTS = {
-    REPEAT: "REPEAT(line {i}, state {state}: --> (state}: (line})\n",
+    REPEAT: "REPEAT(line {i}, state {state}: --> {state}: {line})\n",
     NEXT: "CONTINUE(line {i}, state {state}: --> {new_state_name}: %{line})\n",
     ACCEPT: "ACCEPT(line {i}, state {state}: {line})\n",
     REJECT: "REJECT(line {i}, state {state}: {line})\n",
