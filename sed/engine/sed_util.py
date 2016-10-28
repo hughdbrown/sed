@@ -65,16 +65,14 @@ def find_line(lines, regex):
     for i, line in enumerate(lines):
         m = regex.match(line)
         if m:
-            return i, m.groupdict()
-    return (None, None)
+            yield i, m.groupdict()
 
 
 def find_any_line(lines, regexes):
     for regex in regexes:
         i, m = find_line(lines, regex)
         if m:
-            return i, m
-    return (None, None)
+            yield i, m
 
 
 def add_terminator(lines, terminator):
