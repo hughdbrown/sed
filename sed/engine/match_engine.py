@@ -4,6 +4,10 @@ from __future__ import print_function
 import os
 import logging
 
+# This disables the pylint warning for logging. I should figure out how to
+# do logging messages right.
+# pylint: disable=logging-format-interpolation
+
 ACCEPT, REJECT, NEXT, REPEAT = -1, -2, -3, -4
 STATE_NAME = {
     ACCEPT: "ACCEPT",
