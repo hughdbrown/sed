@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
-import sys
+import os
 import os.path
+import logging
 
 from sed.engine.match_engine import match_engine
 from sed.engine.sed_util import (
@@ -11,6 +12,11 @@ from sed.engine.sed_util import (
     entab,
     sort_range
 )
+
+
+# pylint: disable=logging-format-interpolation
+logging.basicConfig(level=logging.getLevelName(os.getenv('LOGCFG', 'WARNING')))
+logger = logging.getLogger(__name__)
 
 
 # The interface for a class derived from StreamEditor is that it
@@ -37,10 +43,13 @@ class StreamEditor(object):
         )
         self.filename = filename
         with open(self.filename) as handle:
+            if self.verbose:
+                logger.info("Opening {0}".format(self.filename))
             self.lines = [line.rstrip() for line in handle]
-            self.matches = list(reversed(self.match_engine()))
+            self.matches = []
 
     def transform(self):
+        self.matches = list(reversed(self.match_engine()))
         for i, dict_matches in enumerate(self.matches):
             self.apply_match(i, dict_matches)
 
@@ -52,8 +61,8 @@ class StreamEditor(object):
         if self.changes:
             filename = self.new_filename or self.filename
             if self.verbose:
-                msg = "Saving {o.filename} to {0}: {o.changes} changes\n".format(filename, o=self)
-                sys.stderr.write(msg)
+                msg = "Saving {o.filename}: {o.changes} changes".format(o=self)
+                logger.info(msg)
             with open(filename, "w") as handle:
                 handle.write("\n".join(self.lines) + "\n")
             self.changes = 0
