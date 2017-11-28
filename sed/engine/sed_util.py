@@ -62,8 +62,8 @@ def replace_range(old_lines, new_lines, r=None):
 
 
 def find_line(lines, regex):
-    for i, line in enumerate(lines):
-        m = regex.match(line)
+    matches = [(i, regex.match(line)) for i, line in enumerate(lines)]
+    for (i, m) in reversed(matches):
         if m:
             yield i, m.groupdict()
 
