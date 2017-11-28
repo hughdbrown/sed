@@ -53,7 +53,7 @@ def match_engine(lines, regex_specs, verbose=False):
 
                 args = dict([('line_no', i)] + match.groupdict().items())
 
-                if hasattr(new_state, '__call__'):
+                if callable(new_state):
                     new_state = new_state(matches[-1], args)
 
                 if new_state != REJECT:
