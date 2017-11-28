@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 from __future__ import print_function
 
-from sys import stderr
+import os
+import logging
 
 ACCEPT, REJECT, NEXT, REPEAT = -1, -2, -3, -4
 STATE_NAME = {
@@ -21,6 +22,9 @@ FMTS = {
 
 MATCH_FMT = "Match(line {i}, state {state} --> {new_state_name}: {line})\n"
 
+logging.basicConfig(level=logging.getLevelName(os.getenv('LOGCFG', 'WARNING')))
+LOGGER = logging.getLogger(__name__)
+
 
 def match_engine(lines, regex_specs, verbose=False):
     state = 0
@@ -37,10 +41,15 @@ def match_engine(lines, regex_specs, verbose=False):
                 if verbose:
                     # pylint: disable=W0612
                     new_state_name = STATE_NAME.get(new_state, str(new_state))
-                    stderr.write(MATCH_FMT.format(i=i, state=state, new_state_name=new_state_name, line=line))
+                    kwargs = {
+                        'i': i,
+                        'state': state,
+                        'new_state_name': new_state_name,
+                        'line': line,
+                    }
+                    LOGGER.debug(MATCH_FMT.format(**kwargs))
                     fmt = FMTS.get(new_state) or FMTS[0]
-                    msg = fmt.format(i=i, state=state, new_state_name=new_state_name, line=line)
-                    stderr.write(msg)
+                    LOGGER.debug(fmt.format(**kwargs))
 
                 args = dict([('line_no', i)] + match.groupdict().items())
 
@@ -49,6 +58,7 @@ def match_engine(lines, regex_specs, verbose=False):
 
                 if new_state != REJECT:
                     matches[-1]['matches'].append(args)
+
                 if new_state == ACCEPT:
                     matches[-1]['end'] = i
                 elif new_state == REJECT:
@@ -62,5 +72,5 @@ def match_engine(lines, regex_specs, verbose=False):
                 )
                 break
             elif verbose:
-                print("No match: {0}".format(line))
+                LOGGER.debug("No match: {0}".format(line))
     return matches
