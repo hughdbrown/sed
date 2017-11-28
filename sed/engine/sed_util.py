@@ -13,7 +13,7 @@ def delete_range(lines, r=None):
     return replace_range(lines, [], (r[0], r[1] + 1))
 
 
-def insert_range(lines, line_no, new_lines):
+def insert_range(lines, new_lines, line_no):
     """
     >>> a = list(range(10))
     >>> b = list(range(11, 13))
@@ -27,7 +27,7 @@ def insert_range(lines, line_no, new_lines):
     return replace_range(lines, new_lines, (line_no, line_no))
 
 
-def append_range(lines, line_no, new_lines):
+def append_range(lines, new_lines, line_no):
     """
     >>> a = list(range(10))
     >>> b = list(range(11, 13))
