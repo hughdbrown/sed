@@ -8,15 +8,21 @@ import logging
 # do logging messages right.
 # pylint: disable=logging-format-interpolation
 
-ACCEPT, REJECT, NEXT, REPEAT = -1, -2, -3, -4
+# This disables the pylint warning for logging. I should figure out how to
+# do logging messages right.
+# pylint: disable=logging-format-interpolation
+
+ACCEPT, REJECT, NEXT, REPEAT, CUT = -1, -2, -3, -4, -5
 STATE_NAME = {
     ACCEPT: "ACCEPT",
     REJECT: "REJECT",
     NEXT: "NEXT",
     REPEAT: "REPEAT",
+    CUT: "CUT",
 }
 
 FMTS = {
+    CUT: "CUT(line {i}, state {state}: --> {state}: {line})\n",
     REPEAT: "REPEAT(line {i}, state {state}: --> {state}: {line})\n",
     NEXT: "CONTINUE(line {i}, state {state}: --> {new_state_name}: %{line})\n",
     ACCEPT: "ACCEPT(line {i}, state {state}: {line})\n",
@@ -33,13 +39,16 @@ LOGGER = logging.getLogger(__name__)
 def match_engine(lines, regex_specs, verbose=False):
     state = 0
     matches = []
-    for i, line in enumerate(lines):
+    i = 0
+    while i < len(lines):
+        line = lines[i]
         regex_spec = regex_specs[state]
         # Try to match a regular expression from the current state
         for regex, new_state in regex_spec:
             match = regex.match(line)
             if match:
                 if state == 0:
+                    LOGGER.debug("New matches starting at {0}".format(i))
                     matches.append({'start': i, 'end': None, 'matches': []})
 
                 if verbose:
@@ -60,16 +69,19 @@ def match_engine(lines, regex_specs, verbose=False):
                 if callable(new_state):
                     new_state = new_state(matches[-1], args)
 
-                if new_state != REJECT:
-                    matches[-1]['matches'].append(args)
+                if new_state == CUT:
+                    LOGGER.info("Cutting line '{0}'".format(line))
+                    i -= 1
 
-                if new_state == ACCEPT:
+                if new_state not in (REJECT, CUT):
+                    matches[-1]['matches'].append(args)
+                if new_state in (ACCEPT, CUT):
                     matches[-1]['end'] = i
                 elif new_state == REJECT:
                     matches = matches[:-1]
 
                 state = (
-                    0 if new_state in (ACCEPT, REJECT) else
+                    0 if new_state in (ACCEPT, REJECT, CUT) else
                     (state + 1) if new_state == NEXT else
                     state if new_state == REPEAT else
                     new_state
@@ -77,4 +89,5 @@ def match_engine(lines, regex_specs, verbose=False):
                 break
             elif verbose:
                 LOGGER.debug("No match: {0}".format(line))
+        i += 1
     return matches

@@ -1,9 +1,12 @@
 #!/usr/bin/env python
-from __future__ import print_function
-
 import os
 from os.path import isdir, splitext
 from optparse import make_option, OptionParser
+import logging
+
+# pylint: disable=logging-format-interpolation
+logging.basicConfig(level=logging.getLevelName(os.getenv("LOGCFG", "WARNING")))
+LOGGER = logging.getLogger(__name__)
 
 
 def call_main(StreamEditorClass):
@@ -11,6 +14,8 @@ def call_main(StreamEditorClass):
     # files that match down that directory tree
     # Returns a generator, not a list
     def pathiter(start_dir, ext=None):
+        LOGGER.info("start_dir is {0}".format(start_dir))
+        LOGGER.info("ext is {0}".format(ext))
         return (
             os.path.normpath(os.path.join(root, f))
             for root, _, files in os.walk(start_dir)
@@ -19,8 +24,11 @@ def call_main(StreamEditorClass):
         )
 
     def main(filename, StreamEditorClass, options):
-        with StreamEditorClass(filename, options) as streamed:
-            streamed.transform()
+        try:
+            with StreamEditorClass(filename, options) as streamed:
+                streamed.transform()
+        except IOError:
+            LOGGER.exception("sed_file_util:main({0})".format(filename))
 
     option_list = [
         make_option('-d', '--dry-run', dest="dryrun", action="store_true",
