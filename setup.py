@@ -7,7 +7,7 @@ except ImportError:
 
 setup(
     name='sed',
-    version='0.3.0',
+    version='0.3.1',
     description='Streaming editor toolkit',
     author='Hugh Brown',
     author_email='hughdbrown@yahoo.com',
